@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { Moon, SunMedium } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
@@ -18,9 +17,10 @@ export function ThemeToggle() {
           theme === 'dark' ? setTheme('light') : setTheme('dark')
         }
       >
-        <Moon className="hidden [html.light_&]:block" />
-        <SunMedium className="absolute hidden [html.dark_&]:block" />
+        <Moon className="size-5 scale-100 rotate-0 transition-all duration-500 dark:scale-0 dark:-rotate-180" />
+        <SunMedium className="absolute size-5 scale-0 rotate-180 transition-all duration-500 dark:scale-100 dark:rotate-0" />
         <span className="sr-only">Переключение темы</span>
+        {/* Только для роботов */}
       </Button>
     </>
   );
