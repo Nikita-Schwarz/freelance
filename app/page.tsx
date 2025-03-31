@@ -8,8 +8,8 @@ export default function Home() {
           <ThemeImage
             srcLight="/girlWhite.png"
             srcDark="/manDark.png"
-            fill
             alt="Главное изображение"
+            fill
             className="object-cover"
           />
         </div>

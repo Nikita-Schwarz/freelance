@@ -12,24 +12,14 @@ type Props = Omit<ImageProps, 'src' | 'priority' | 'loading'> & {
 export default function ThemeImage(props: Props) {
   const { srcLight, srcDark, ...rest } = props;
   const { resolvedTheme } = useTheme();
-  let src;
-
-  switch (resolvedTheme) {
-    case 'light':
-      src = srcLight;
-      break;
-    case 'dark':
-      src = srcDark;
-      break;
-    default:
-      src =
-        'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-      break;
-  }
 
   return (
     <>
-      <Image {...rest} src={src} />
+      {resolvedTheme === 'light' ? (
+        <Image {...rest} src={srcLight} />
+      ) : (
+        <Image {...rest} src={srcDark} />
+      )}
     </>
   );
 }
