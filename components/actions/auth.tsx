@@ -11,8 +11,20 @@ export async function signup(state: FormState, formData: FormData) {
 
   if (!validatedFields.success) {
     const errors = validatedFields.error.flatten().fieldErrors;
-    toast.warning(errors.password);
-    toast.warning(errors.email);
+    {
+      errors?.confirmPassword && toast.warning(errors.confirmPassword);
+    }
+    toast.warning('В пароле не хватает:', {
+      description: (
+        <ul className="list-inside list-disc">
+          {errors?.password?.map((msg, i) => <li key={i}>{msg}</li>)}
+        </ul>
+      ),
+    });
+
+    {
+      errors?.email && toast.warning(errors.email);
+    }
     return {
       errors: errors,
       values: data,

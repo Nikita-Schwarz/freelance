@@ -15,23 +15,25 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  auth,
   children,
-}: Readonly<{
+}: {
+  auth: React.ReactNode;
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ru" suppressHydrationWarning>
       <body className={`${notoSans.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div>{auth}</div>
           <Header />
           {children}
         </ThemeProvider>
         <Toaster
           position="top-right"
-          richColors
+          /* richColors */
           expand
           duration={5000}
-          visibleToasts={2}
         />
       </body>
     </html>

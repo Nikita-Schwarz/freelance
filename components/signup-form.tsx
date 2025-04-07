@@ -5,10 +5,10 @@ import { useActionState, useState } from 'react';
 import Form from 'next/form';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogOverlay,
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
@@ -22,17 +22,22 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from './ui/tooltip';
-import { Info, Loader } from 'lucide-react';
+import { Eye, EyeOff, Info, Loader } from 'lucide-react';
 
-export function SignupForm() {
-  const [open, setOpen] = useState(false);
+export function SignupForm({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  // const [open, setOpen] = useState(false);  TODO: добавить закрытие формы при аутентификации
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [state, action, pending] = useActionState(signup, undefined);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button>trigger</Button>
-      </DialogTrigger>
+    <Dialog /*  open={open} onOpenChange={setOpen} */>
+      <DialogOverlay className="pointer-events-none" />
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent aria-describedby={undefined} className="w-100 gap-7">
         <DialogHeader>
           <DialogTitle>Регистрация</DialogTitle>
@@ -73,18 +78,48 @@ export function SignupForm() {
               <Input
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 aria-invalid={!!state?.errors.password}
                 defaultValue={state?.values.password}
               />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                tabIndex={-1}
+                className="absolute right-0 bottom-0 hover:bg-transparent focus-visible:border-none focus-visible:ring-0 dark:hover:bg-transparent"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
             </div>
-            <div className="grid gap-2">
+            <div className="relative grid gap-2">
               <Label htmlFor="confirmPassword">Подтверждение пароля:</Label>
               <Input
                 id="confirmPassword"
                 name="confirmPassword"
-                type="password"
+                type={showConfirmPassword ? 'text' : 'password'}
+                aria-invalid={!!state?.errors.confirmPassword}
+                defaultValue={state?.values.confirmPassword}
               />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                tabIndex={-1}
+                className="absolute right-0 bottom-0 hover:bg-transparent focus-visible:border-none focus-visible:ring-0 dark:hover:bg-transparent"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
             </div>
             <Button type="submit" disabled={pending} className="w-full">
               {pending === true ? (

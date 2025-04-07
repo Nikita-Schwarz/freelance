@@ -13,6 +13,7 @@ import { ThemeToggle } from './theme/theme-toggle';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
 import { LoginForm } from './login-form';
+import { SignupForm } from './signup-form';
 
 export default function Header() {
   return (
@@ -60,12 +61,14 @@ export default function Header() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link
-                href="/login"
-                className="text-primary-foreground transition-colors hover:text-white"
-              >
-                Вход/Регистрация
-              </Link>
+              <SignupForm>
+                <Link
+                  href="/signup"
+                  className="text-primary-foreground transition-colors hover:text-white"
+                >
+                  Вход/Регистрация
+                </Link>
+              </SignupForm>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
