@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Noto_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/header';
+import { Toaster } from '@/components/ui/sonner';
 
 const notoSans = Noto_Sans({
   subsets: ['cyrillic'],
@@ -25,6 +26,13 @@ export default function RootLayout({
           <Header />
           {children}
         </ThemeProvider>
+        <Toaster
+          position="top-right"
+          richColors
+          expand
+          duration={5000}
+          visibleToasts={2}
+        />
       </body>
     </html>
   );
