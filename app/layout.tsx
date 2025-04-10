@@ -25,16 +25,15 @@ export default function RootLayout({
     <html lang="ru" suppressHydrationWarning>
       <body className={`${notoSans.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div>{auth}</div>
           <Header />
           {children}
+          {auth}
+          <Toaster
+            /* expand // скрытие тостов */
+            closeButton
+            duration={5000}
+          />
         </ThemeProvider>
-        <Toaster
-          position="top-right"
-          /* richColors */
-          expand
-          duration={5000}
-        />
       </body>
     </html>
   );

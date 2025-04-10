@@ -12,12 +12,10 @@ import {
 import { ThemeToggle } from './theme/theme-toggle';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
-import { LoginForm } from './login-form';
-import { SignupForm } from './signup-form';
 
 export default function Header() {
   return (
-    <header className="bg-primary max-h-18">
+    <header className="bg-primary h-18">
       <div className="container mx-auto flex items-center">
         <Image src="/logo.svg" width={72} height={72} alt="Логотип" />
         <h1 className="text-primary-foreground mx-4">Фриланс биржа</h1>
@@ -61,14 +59,20 @@ export default function Header() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <SignupForm>
-                <Link
-                  href="/signup"
-                  className="text-primary-foreground transition-colors hover:text-white"
-                >
-                  Вход/Регистрация
-                </Link>
-              </SignupForm>
+              <Link
+                href="/login"
+                className="text-primary-foreground transition-colors hover:text-white"
+              >
+                Вход
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link
+                href="/signup"
+                className="text-primary-foreground transition-colors hover:text-white"
+              >
+                Регистрация
+              </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

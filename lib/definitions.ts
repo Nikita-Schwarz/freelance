@@ -8,22 +8,22 @@ export const SignupFormSchema = z
       .trim(),
     password: z
       .string()
-      .min(8, { message: 'Минимум 8-ми символов.' })
+      .min(8, { message: 'Пароль должен быть не менее 8 символов' })
+      .regex(/^[^а-яА-ЯёЁ]*$/, {
+        message: 'Пароль не должен содержать русские буквы',
+      })
       .regex(/[A-Z]/, {
-        message: 'Хотя бы одна заглавной буквы.',
+        message: 'Должна быть хотя бы одна заглавная буква',
       })
       .regex(/[a-z]/, {
-        message: 'Хотя бы одной строчной буквы.',
+        message: 'Должна быть хотя бы одна строчная буква',
       })
-      .regex(/[0-9]/, { message: 'Хотя бы одной цифры.' })
+      .regex(/[0-9]/, { message: 'Должна быть хотя бы одна цифра' })
       .regex(/[^a-zA-Z0-9]/, {
-        message: 'Хотя бы одного спецсимвола.',
+        message: 'Должен быть хотя бы один спецсимвол',
       })
-      .trim()
-      .refine(
-        (value) => !/[а-яА-ЯЁё]/.test(value),
-        'Не должен содержать русские буквы.',
-      ),
+      .trim(),
+
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -31,13 +31,22 @@ export const SignupFormSchema = z
     path: ['confirmPassword'], // Указываем, что ошибка относится к этому полю
   });
 
-export type FormState =
+export const LoginFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+export type SignupState =
   | {
-      errors?: {
-        email?: string[];
-        password?: string[];
-        confirmPassword?: string[];
-      };
-      message?: string;
+      email: string;
+      password: string;
+      confirmPassword?: string;
+    }
+  | undefined;
+
+export type LoginState =
+  | {
+      email: string;
+      password: string;
     }
   | undefined;
